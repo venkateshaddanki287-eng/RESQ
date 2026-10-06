@@ -20,11 +20,12 @@ export type ResponseType =
   | "SHELTER"
   | "FOOD"
   | "WATER"
+  | "CLOTHING"
   | "VOLUNTEER";
 
 export interface Location {
-  lat: number;
-  lng: number;
+  lat: number | null;
+  lng: number | null;
   city: string;
   region: string;
   label: string;
@@ -38,6 +39,7 @@ export interface ResponseBranch {
   availability: "AVAILABLE" | "BUSY" | "UNAVAILABLE";
   distanceKm: number;
   status: IncidentStatus;
+  assignedResourceId?: string;
 }
 
 export interface Resource {
@@ -48,6 +50,7 @@ export interface Resource {
   distanceKm: number;
   capacity?: number;
   currentLoad?: number;
+  location?: { lat: number; lng: number };
 }
 
 export interface Incident {
@@ -55,7 +58,7 @@ export interface Incident {
   status: IncidentStatus;
   title: string;
   description: string;
-  priority: Priority;
+  priority: Priority | null;
   branches: ResponseBranch[];
   createdAt: string;
   affectedPeople: number;

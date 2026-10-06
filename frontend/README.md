@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RESQ Frontend Demo
 
-## Getting Started
+RESQ is a frontend-only disaster response coordination demo built with Next.js, TypeScript, Tailwind CSS, Leaflet, and Zustand.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Demo routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/` — product landing page
+- `/report` — citizen location and report flow
+- `/report/status/RX-1042` — live status for a report in the current browser
+- `/coordinator` — command center, incident queue, map, and resource inventory
+- `/coordinator/incidents/RX-1042` — coordinator review, triage, and human-approved dispatch
+- `/responder` — responder queue, role filters, claiming, and status progression
+- `/responder/requests/RX-1042?branch=FIRE` — individual responder assignment
+- `/resources` — resource inventory
 
-## Learn More
+## Demo behavior and limits
 
-To learn more about Next.js, take a look at the following resources:
+- Incidents, assignments, and resource availability use mock data stored in this browser's local storage. Use **Reset demo** in the command center to restore the seed data.
+- Reports submitted in the citizen flow appear in the coordinator queue. New reports are untriaged until a coordinator adds response branches.
+- A coordinator explicitly selects a response resource and approves dispatch. Responders can claim and advance their branch through responding, on-scene, and resolved.
+- The map uses OpenStreetMap tiles and omits manually entered locations when coordinates are unavailable.
+- Voice recordings are captured and played locally; the mock submission adapter currently submits text only.
+- No backend, AI analysis, emergency service, or real dispatch is connected. The visible mock-mode labels are intentional.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Checks
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint
+npm run build
+```

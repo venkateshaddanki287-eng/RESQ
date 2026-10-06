@@ -15,10 +15,10 @@ export function StatusBadge({ status }: { status: Incident["status"] }) {
     RESOURCE_ASSIGNED: "bg-[#1A1D1F] text-[#3FB6A8] border border-[#3FB6A8]/40",
   };
 
-  return <span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${styles[status]}`}>{status}</span>;
+  return <span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${styles[status]}`}>{status.replaceAll("_", " ")}</span>;
 }
 
-export function PriorityBadge({ priority }: { priority: Priority }) {
+export function PriorityBadge({ priority }: { priority: Priority | null }) {
   const styles: Record<Priority, string> = {
     LOW: "bg-[#1A1D1F] text-[#F2EFE7] border border-[#7E858B]/40",
     MEDIUM: "bg-[#1A1D1F] text-[#E5A93D] border border-[#E5A93D]/40",
@@ -26,7 +26,10 @@ export function PriorityBadge({ priority }: { priority: Priority }) {
     CRITICAL: "bg-[#E5484D] text-[#111315] border border-[#E5484D]",
   };
 
-  return <span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${styles[priority]}`}>{priority}</span>;
+  const style = priority
+    ? styles[priority]
+    : "bg-[#1A1D1F] text-[#7E858B] border border-[#7E858B]/40";
+  return <span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${style}`}>{priority ?? "UNASSESSED"}</span>;
 }
 
 export function SectionTitle({ children, right }: { children: ReactNode; right?: ReactNode }) {
